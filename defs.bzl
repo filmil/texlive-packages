@@ -5,20 +5,20 @@ pdflatex looks for a class or a style file in its working directory, by
 its bare name. A LaTeX rule such as rules_latex_host's latex_document
 copies each `data` file there under its path relative to the
 document's package, so a file from this module, at
-`external/texlive_packages+/pgf/tikz.sty`, would land at a path that
+`external/hdlf_texlive_packages+/pgf/tikz.sty`, would land at a path that
 starts with `..` and never be found.
 
 tex_package_files links every file of the packages it is given into the
 calling package, under its bare name, so that passing the target as
 `data` puts each file where pdflatex looks:
 
-    load("@texlive_packages//:defs.bzl", "tex_package_files")
+    load("@hdlf_texlive_packages//:defs.bzl", "tex_package_files")
 
     tex_package_files(
         name = "tex_packages",
         srcs = [
-            "@texlive_packages//ieeetran",
-            "@texlive_packages//pgf",
+            "@hdlf_texlive_packages//ieeetran",
+            "@hdlf_texlive_packages//pgf",
         ],
     )
 
@@ -46,7 +46,7 @@ tex_package_files = rule(
     attrs = {
         "srcs": attr.label_list(
             allow_files = True,
-            doc = "Packages of this module, such as `@texlive_packages//pgf`, or any other files.",
+            doc = "Packages of this module, such as `@hdlf_texlive_packages//pgf`, or any other files.",
         ),
     },
 )

@@ -1,15 +1,15 @@
 # SPDX-License-Identifier: Apache-2.0
 #
-# An outside consumer of texlive_packages, resolved from the Bazel Central
+# An outside consumer of hdlf_texlive_packages, resolved from the Bazel Central
 # Registry alone: the BCR presubmit runs this module (.bcr/presubmit.yml).
 module(
-    name = "texlive_packages_integration",
+    name = "hdlf_texlive_packages_integration",
     version = "0.0.0",
 )
 
-bazel_dep(name = "texlive_packages", version = "0.0.0")
+bazel_dep(name = "hdlf_texlive_packages", version = "0.0.0")
 local_path_override(
-    module_name = "texlive_packages",
+    module_name = "hdlf_texlive_packages",
     path = "..",
 )
 

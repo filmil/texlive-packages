@@ -1,13 +1,14 @@
+load("@hdlf_texlive_packages//:defs.bzl", "tex_package_files")
+
 # SPDX-License-Identifier: Apache-2.0
 load("@rules_latex_host//latex:defs.bzl", "latex_document")
-load("@texlive_packages//:defs.bzl", "tex_package_files")
 
 tex_package_files(
     name = "tex_packages",
     srcs = [
-        "@texlive_packages//ieeetran",
-        "@texlive_packages//listings",
-        "@texlive_packages//pgf",
+        "@hdlf_texlive_packages//ieeetran",
+        "@hdlf_texlive_packages//listings",
+        "@hdlf_texlive_packages//pgf",
     ],
 )
 

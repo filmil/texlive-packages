@@ -4,7 +4,7 @@ package(default_visibility = ["//visibility:public"])
 exports_files(["LICENSE"])
 
 # The package's files, listed rather than globbed, so that a file added by
-# accident does not travel with the next release. `@texlive_packages//listings`
+# accident does not travel with the next release. `@hdlf_texlive_packages//listings`
 # names this target.
 filegroup(
     name = "listings",
