@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: LPPL-1.3c
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["LICENSE"])
+
+# The package's files, listed rather than globbed, so that a file added by
+# accident does not travel with the next release. `@texlive_packages//ieeetran`
+# names this target.
+filegroup(
+    name = "ieeetran",
+    srcs = [
+        "IEEEtran.cls",
+        "IEEEtrantools.sty",
+    ],
+)
+
+alias(
+    name = "files",
+    actual = ":ieeetran",
+)

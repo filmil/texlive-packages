@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: Apache-2.0
+load("@rules_latex_host//latex:defs.bzl", "latex_document")
+load("@texlive_packages//:defs.bzl", "tex_package_files")
+
+tex_package_files(
+    name = "tex_packages",
+    srcs = [
+        "@texlive_packages//ieeetran",
+        "@texlive_packages//listings",
+        "@texlive_packages//pgf",
+    ],
+)
+
+# An IEEEtran paper with a TikZ figure and a listing: none of the three is
+# in the hermetic TinyTeX, so the build passes only with this module.
+latex_document(
+    name = "paper",
+    data = [":tex_packages"],
+    main = "paper.tex",
+)

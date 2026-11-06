@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
+# Every dependency of this module, the dev ones included, is in the Bazel
+# Central Registry, so the default registry is the only one.
+try-import %workspace%/user.bazelrc

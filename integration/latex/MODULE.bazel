@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Compiles a real document with the packages, under the hermetic toolchain
+# of rules_latex_host: a pinned TinyTeX, fetched by Bazel, with nothing
+# installed on the machine. rules_latex_host is in filmil/bazel-registry,
+# not in the Bazel Central Registry, so this check lives in a module of its
+# own, apart from the BCR-only integration module above it.
+module(
+    name = "texlive_packages_latex_check",
+    version = "0.0.0",
+)
+
+bazel_dep(name = "texlive_packages", version = "0.0.0")
+local_path_override(
+    module_name = "texlive_packages",
+    path = "../..",
+)
+
+bazel_dep(name = "rules_latex_host", version = "0.3.1")
+
+hermetic_latex = use_extension("@rules_latex_host//latex:extensions.bzl", "hermetic_latex")
+hermetic_latex.toolchain()
+use_repo(hermetic_latex, "hermetic_latex", "hermetic_latex_ghostscript")
+
+register_toolchains("@hermetic_latex//:all")

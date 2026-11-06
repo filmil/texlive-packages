@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: LPPL-1.3c
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["LICENSE"])
+
+# The package's files, listed rather than globbed, so that a file added by
+# accident does not travel with the next release. `@texlive_packages//listings`
+# names this target.
+filegroup(
+    name = "listings",
+    srcs = [
+        "listings.cfg",
+        "listings.sty",
+        "listings-acm.prf",
+        "listings-bash.prf",
+        "listings-fortran.prf",
+        "listings-hansl.prf",
+        "listings-lua.prf",
+        "listings-python.prf",
+        "listings-rexx.prf",
+        "listings-riscv.prf",
+        "lstdoc.sty",
+        "lstlang1.sty",
+        "lstlang2.sty",
+        "lstlang3.sty",
+        "lstmisc.sty",
+        "lstpatch.sty",
+    ],
+)
+
+alias(
+    name = "files",
+    actual = ":listings",
+)

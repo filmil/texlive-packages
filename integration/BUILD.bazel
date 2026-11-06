@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: Apache-2.0
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("@texlive_packages//:defs.bzl", "tex_package_files")
+
+# What a consumer writes: the packages it needs, linked next to its
+# documents.
+tex_package_files(
+    name = "tex_packages",
+    srcs = [
+        "@texlive_packages//ieeetran",
+        "@texlive_packages//listings",
+        "@texlive_packages//pgf",
+    ],
+)
+
+sh_test(
+    name = "consumer_test",
+    size = "small",
+    srcs = ["consumer_test.sh"],
+    data = [":tex_packages"],
+)

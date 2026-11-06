@@ -1,0 +1,24 @@
+% SPDX-License-Identifier: Apache-2.0
+\documentclass[journal,10pt]{IEEEtran}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{listings}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,frame=single}
+\title{texlive\_packages check}
+\author{texlive\_packages}
+\begin{document}
+\maketitle
+\section{A figure}
+\begin{tikzpicture}[node distance=8mm]
+  \node[draw] (a) {Source};
+  \node[draw,right=of a] (b) {PDF};
+  \draw[-{Stealth}] (a) -- (b);
+\end{tikzpicture}
+\section{A listing}
+\begin{lstlisting}
+def greet(name):
+    return "hello, " + name
+\end{lstlisting}
+\end{document}

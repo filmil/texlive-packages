@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: Apache-2.0
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//:defs.bzl", "tex_package_files")
+
+tex_package_files(
+    name = "flat",
+    srcs = [
+        "//ieeetran",
+        "//listings",
+        "//pgf",
+    ],
+)
+
+# The linked files are in this package, under their bare names, which is
+# where pdflatex looks for them.
+sh_test(
+    name = "flat_test",
+    size = "small",
+    srcs = ["flat_test.sh"],
+    data = [":flat"],
+)

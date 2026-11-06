@@ -1,0 +1,72 @@
+# SPDX-License-Identifier: Apache-2.0
+
+name: Test
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: "43 7 * * 0"
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # Bazel 8 and 9, as the BCR presubmit does (.bcr/presubmit.yml).
+    strategy:
+      matrix:
+        bazel: [8.x, 9.x]
+    runs-on: ubuntu-latest
+    env:
+      USE_BAZEL_VERSION: ${{ matrix.bazel }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup bazel
+        uses: bazel-contrib/setup-bazel@0.19.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}-${{ matrix.bazel }}
+          repository-cache: true
+      - name: Build
+        run: bazel build //...
+      # The release workflow runs `bazel test //...` at the tag before it
+      # builds the archive, so a test that fails only there fails the release.
+      # Running it here fails the pull request instead.
+      - name: Test
+        run: bazel test //...
+      # Fails when the module, or a dev dependency of it, needs a module that
+      # is not in the Bazel Central Registry.
+      - name: Dependencies resolve from the BCR alone
+        run: bazel --ignore_all_rc_files mod graph --registry=https://bcr.bazel.build > /dev/null
+      - name: Integration module (an outside consumer, BCR only)
+        run: cd integration && bazel test --registry=https://bcr.bazel.build //...
+
+  latex:
+    # Compiles an IEEEtran paper with TikZ and listings under the hermetic
+    # toolchain of rules_latex_host, on a runner with no TeX installed: the
+    # packages have to come from this module.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup bazel
+        uses: bazel-contrib/setup-bazel@0.19.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}-latex
+          repository-cache: true
+      - name: Confirm the runner has no TeX
+        run: |
+          if command -v pdflatex; then
+            echo "runner has a host pdflatex; this job no longer proves anything" >&2
+            exit 1
+          fi
+      - name: Build integration/latex
+        run: cd integration/latex && bazel build //...
+      - name: Check the PDF came out
+        run: |
+          test -s integration/latex/bazel-bin/paper.pdf
+          head -c 5 integration/latex/bazel-bin/paper.pdf | grep -q '%PDF-'
