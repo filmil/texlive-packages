@@ -6,13 +6,13 @@
 # not in the Bazel Central Registry, so this check lives in a module of its
 # own, apart from the BCR-only integration module above it.
 module(
-    name = "texlive_packages_latex_check",
+    name = "hdlf_texlive_packages_latex_check",
     version = "0.0.0",
 )
 
-bazel_dep(name = "texlive_packages", version = "0.0.0")
+bazel_dep(name = "hdlf_texlive_packages", version = "0.0.0")
 local_path_override(
-    module_name = "texlive_packages",
+    module_name = "hdlf_texlive_packages",
     path = "../..",
 )
 

@@ -22,17 +22,17 @@ cat <<NOTES
 ## Using Bzlmod
 
 \`\`\`starlark
-bazel_dep(name = "texlive_packages", version = "${VERSION}")
+bazel_dep(name = "hdlf_texlive_packages", version = "${VERSION}")
 \`\`\`
 
 Then, next to a document:
 
 \`\`\`starlark
-load("@texlive_packages//:defs.bzl", "tex_package_files")
+load("@hdlf_texlive_packages//:defs.bzl", "tex_package_files")
 
 tex_package_files(
     name = "tex_packages",
-    srcs = ["@texlive_packages//ieeetran", "@texlive_packages//pgf"],
+    srcs = ["@hdlf_texlive_packages//ieeetran", "@hdlf_texlive_packages//pgf"],
 )
 \`\`\`
 

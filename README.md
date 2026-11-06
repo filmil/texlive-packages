@@ -1,4 +1,4 @@
-# texlive_packages
+# hdlf_texlive_packages
 
 [![Test](https://github.com/filmil/texlive-packages/actions/workflows/test.yml/badge.svg)](https://github.com/filmil/texlive-packages/actions/workflows/test.yml)
 [![Tag and Release](https://github.com/filmil/texlive-packages/actions/workflows/tag-and-release.yml/badge.svg)](https://github.com/filmil/texlive-packages/actions/workflows/tag-and-release.yml)
@@ -20,9 +20,9 @@ This module holds them once, so a project writes a `bazel_dep` instead.
 
 | Label | Package | Version | License |
 |---|---|---|---|
-| `@texlive_packages//ieeetran` | IEEEtran (`IEEEtran.cls`, `IEEEtrantools.sty`) | TeX Live 2026-08-01 | LPPL 1.3 |
-| `@texlive_packages//pgf` | pgf and TikZ, 282 files | TeX Live 2026-08-01 | LPPL 1.3c or GPL 2 |
-| `@texlive_packages//listings` | listings, with the language definitions | 1.11b | LPPL 1.3c |
+| `@hdlf_texlive_packages//ieeetran` | IEEEtran (`IEEEtran.cls`, `IEEEtrantools.sty`) | TeX Live 2026-08-01 | LPPL 1.3 |
+| `@hdlf_texlive_packages//pgf` | pgf and TikZ, 282 files | TeX Live 2026-08-01 | LPPL 1.3c or GPL 2 |
+| `@hdlf_texlive_packages//listings` | listings, with the language definitions | 1.11b | LPPL 1.3c |
 
 Each package directory has a `README.md` with its exact source, what was left
 out and why, and a `LICENSE`.
@@ -33,20 +33,20 @@ The files are unchanged upstream files, with their copyright headers intact.
 In `MODULE.bazel`:
 
 ```starlark
-bazel_dep(name = "texlive_packages", version = "<version>")
+bazel_dep(name = "hdlf_texlive_packages", version = "<version>")
 ```
 
 Next to a document:
 
 ```starlark
-load("@texlive_packages//:defs.bzl", "tex_package_files")
+load("@hdlf_texlive_packages//:defs.bzl", "tex_package_files")
 load("@rules_latex_host//latex:defs.bzl", "latex_document")
 
 tex_package_files(
     name = "tex_packages",
     srcs = [
-        "@texlive_packages//ieeetran",
-        "@texlive_packages//pgf",
+        "@hdlf_texlive_packages//ieeetran",
+        "@hdlf_texlive_packages//pgf",
     ],
 )
 

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 module(
-    name = "texlive_packages",
+    name = "hdlf_texlive_packages",
     version = "0.0.0",
     bazel_compatibility = [">=8.0.0"],
     compatibility_level = 1,
